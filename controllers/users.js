@@ -39,7 +39,7 @@ module.exports.registerUser = (req, res) => {
 };
 
 module.exports.loginUser = (req, res) => {
-    User.findOne({ $or: [{ email: req.body.email }, { username: req.body.email }] })
+    User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
                 return res.status(404).send({ message: 'User not found' });
@@ -56,7 +56,6 @@ module.exports.loginUser = (req, res) => {
                 user: {
                     id: user._id,
                     email: user.email,
-                    username: user.username,
                     isAdmin: user.isAdmin
                 }
             });
